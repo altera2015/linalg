@@ -12,3 +12,11 @@ Matrix result = a * b
 print(result)
 print(result == e)
 ```
+
+
+## Original code from
+
+We started with this code, but found it needed work and
+ended up rewriting large sections of the code.
+
+https://pub.dartlang.org/packages/toaster_linear
