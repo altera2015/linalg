@@ -4,13 +4,13 @@
 
 A Simple Linear Algebra Package. 
 
-This package is intended to be a portable easy to use linear algebra package. 
-It does not have any dependencies outside of flutter itself, thus making it 
-portable and easy to integrate.
+This package is intended to be a portable easy to use linear algebra package. It does not have any dependencies outside of flutter itself, thus making it portable and easy to integrate.
 
 Our goal is to keep the code readable, documented and maintainable.
 
-## Getting Started
+## Short Example
+
+Just a quick example on how to do matrix multiplication.
 
 ```dart
 final Matrix a = Matrix([[1, 2], [3, 4]]);
@@ -21,9 +21,13 @@ print(result)
 print(result == e)
 ```
 
-### Example
+## Complete Example
+
+A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Matrix-class.html) for the full details.
 
 ```dart
+import 'package:linalg/linalg.dart';
+
 // *****************************
 // Lets solve a linear equation.
 // *****************************
