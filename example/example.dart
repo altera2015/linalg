@@ -1,6 +1,6 @@
 import 'package:linalg/linalg.dart';
 
-
+/// Example code for using the Matrix class.
 void main() {
 
   // *****************************
