@@ -20,7 +20,7 @@ linter:
     - sort_constructors_first
     - unnecessary_brace_in_string_interps
 
-#analyzer:
-#  strong-mode:
-#    implicit-casts: false
-#    implicit-dynamic: false
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false

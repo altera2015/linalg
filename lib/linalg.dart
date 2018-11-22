@@ -171,7 +171,7 @@ class Matrix {
   @override
   bool operator ==(dynamic other) {
 
-    bool isClose(double a, double b, [double relTol=1e-9, double absTol=0] ) {
+    bool isClose(double a, double b, [double relTol=1e-9, double absTol=0.0] ) {
       double diff = a - b;
       diff = diff.abs();
       return diff <= max( relTol * max(a.abs(), b.abs()), absTol);
@@ -335,7 +335,7 @@ class Matrix {
     }
 
     if ( bestColumnCount > bestRowCount ) {
-      double det = 0;
+      double det = 0.0;
       int c = bestColumn;
       for (int r=0;r< this.m; r++) {
         double v = this[r][c];
@@ -349,7 +349,7 @@ class Matrix {
 
     } else {
 
-      double det = 0;
+      double det = 0.0;
       int r = bestRow;
       for (int c=0;c< this.n; c++) {
         double v = this[r][c];
@@ -404,8 +404,8 @@ class Matrix {
       Matrix i = Matrix.fill(m, n);
       i[0][0] = this[1][1];
       i[1][1] = this[0][0];
-      i[0][1] = -this[0][1];
-      i[1][0] = -this[1][0];
+      i[0][1] = -1.0 * this[0][1];
+      i[1][0] = -1.0 * this[1][0];
       return i * ( 1 / d );
 
     } else {
