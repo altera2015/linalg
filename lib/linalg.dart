@@ -7,8 +7,8 @@ typedef double MatrixMapFunc(double x);
 
 /// Base class of all Matrix class exceptions.
 class MatrixException implements Exception {
-  String cause;
   MatrixException(this.cause);
+  String cause;
 }
 
 /// An exception that is thrown when [invert] is called on a non-invertable matrix.
@@ -33,29 +33,6 @@ class MatrixUnsupportedOperation extends MatrixException {
 /// able to read the functions and understand what
 /// is going on with basic linear algebra knowledge.
 class Matrix {
-
-  final List<List<double>> _values;
-
-  /// Returns the number of rows
-  int get m => _values.length;
-  /// Returns the number of columns
-  int get n => _values[0].length;
-
-  static List<List<double>> _createStore(int m, int n, double fill) {
-    if ( m <= 0 || n <= 0 ) {
-      throw MatrixUnsupportedOperation("m and n must be positive.");
-    }
-    List<List<double>> toRet = List<List<double>>();
-    for (int i = 0; i < m; i++) {
-      List<double> sub = [];
-      for (int j = 0; j < n; j++) {
-        sub.add(fill);
-      }
-      toRet.add(sub);
-    }
-    return toRet;
-  }
-
 
   /// Constructs a matrix from a List<List<double>> value.
   ///
@@ -82,6 +59,31 @@ class Matrix {
   }
 
 
+  final List<List<double>> _values;
+
+  /// Returns the number of rows
+  int get m => _values.length;
+  /// Returns the number of columns
+  int get n => _values[0].length;
+
+  static List<List<double>> _createStore(int m, int n, double fill) {
+    if ( m <= 0 || n <= 0 ) {
+      throw MatrixUnsupportedOperation("m and n must be positive.");
+    }
+    List<List<double>> toRet = List<List<double>>();
+    for (int i = 0; i < m; i++) {
+      List<double> sub = [];
+      for (int j = 0; j < n; j++) {
+        sub.add(fill);
+      }
+      toRet.add(sub);
+    }
+    return toRet;
+  }
+
+
+
+
   /// Access a row of data from the matrix
   ///
   /// To access a specific value use double brackets
@@ -92,7 +94,7 @@ class Matrix {
   /// ```
   ///
   /// Unlike math class indexes start at zero.
-  operator [](int m) => _values[m];
+  List<double> operator [](int m) => _values[m];
 
   /// Multiply an Matrix with a Matrix or a scalar
   ///
@@ -106,7 +108,7 @@ class Matrix {
   /// Throws an [MatrixUnsupportedOperation] error if the
   /// requested multiplication is not valid. For example
   /// if matrices with the wrong dimensions are passed in.
-  operator *(dynamic other) {
+  Matrix operator *(dynamic other) {
 
     double cutDot(Matrix other, int thisRow, int otherColumn) {
 
@@ -139,7 +141,7 @@ class Matrix {
   /// Add two matrices of same dimensions.
   ///
   /// Throws [MatrixInvalidDimensions] if dimensions do not match.
-  operator +(Matrix other) {
+  Matrix operator +(Matrix other) {
     if (this.m != other.m || this.n != other.n) throw new MatrixInvalidDimensions();
     Matrix toReturn = new Matrix.fill(m, n);
     for (int i = 0; i < m; i++) {
@@ -153,7 +155,7 @@ class Matrix {
   /// Subtract two matrices of same dimensions.
   ///
   /// Throws [MatrixInvalidDimensions] if dimensions do not match.
-  operator -(Matrix other) {
+  Matrix operator -(Matrix other) {
     if (this.m != other.m || this.n != other.n) throw new MatrixInvalidDimensions();
     return this + ~other;
   }
@@ -161,12 +163,13 @@ class Matrix {
   /// Negate all values
   ///
   /// This is the same as multiplying the matrix with -1.
-  operator ~() {
+  Matrix operator ~() {
     return this.map((x) => -x);
   }
 
   /// Equality check for each element in the matrix.
-  operator ==(dynamic other) {
+  @override
+  bool operator ==(dynamic other) {
 
     bool isClose(double a, double b, [double relTol=1e-9, double absTol=0] ) {
       double diff = a - b;
