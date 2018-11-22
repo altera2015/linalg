@@ -1,3 +1,7 @@
+## [0.0.4] -- 11/21/2018
+
+* Increased Dart minimum to 2.1.0 to allow int to double assignments.
+
 ## [0.0.3] -- 11/21/2018
 
 * Removed flutter dependency

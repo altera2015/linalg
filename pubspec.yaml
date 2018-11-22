@@ -1,12 +1,12 @@
 name: linalg
 description: A Simple Linear Algebra Package enabling easy Matrix calculations.
-version: 0.0.3
+version: 0.0.4
 author: Ron Bessems <rbessems@gmail.com>
 homepage: https://github.com/altera2015/linalg
 
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0-dev.9.4 <3.0.0"
 
 dev_dependencies:
   test: ">=1.5.1"
