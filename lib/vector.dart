@@ -261,7 +261,7 @@ class Vector {
     } else {
       String l = '[\n';
       for (int i = 0; i < elements; i++) {
-        l += "\t${_matrix[i][0]}${i<elements-1?',':''}\n";
+        l += "\t${_matrix[i][0]}${i < elements - 1 ? ',' : ''}\n";
       }
       l += "]\n";
       return l;
