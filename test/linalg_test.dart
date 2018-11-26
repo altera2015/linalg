@@ -1,3 +1,5 @@
+library linalg.test.linalg;
+
 import 'package:test/test.dart';
 import 'package:linalg/linalg.dart';
 
@@ -66,14 +68,14 @@ void main() {
   });
 
   test("Matrix Multiplication test", () {
-    final Matrix a1 = Matrix([[1, 2], [3, 4]]);
-    final Matrix b1 = Matrix([[2, 0], [1, 2]]);
-    final Matrix e1 = Matrix([[4, 4], [10, 8]]);
+    final Matrix a1 = Matrix([[1.0, 2.0], [3.0, 4.0]]);
+    final Matrix b1 = Matrix([[2.0, 0.0], [1.0, 2.0]]);
+    final Matrix e1 = Matrix([[4.0, 4.0], [10.0, 8.0]]);
     expect(a1 * b1, e1);
 
-    final Matrix a2 = Matrix([[1, 2], [3, 4], [1, 2]]);
-    final Matrix b2 = Matrix([[2, 0], [1, 2]]);
-    final Matrix e2 = Matrix([[4, 4], [10, 8], [4, 4]]);
+    final Matrix a2 = Matrix([[1.0, 2.0], [3.0, 4.0], [1.0, 2.0]]);
+    final Matrix b2 = Matrix([[2.0, 0.0], [1.0, 2.0]]);
+    final Matrix e2 = Matrix([[4.0, 4.0], [10.0, 8.0], [4.0, 4.0]]);
     expect(a2 * b2, e2);
   });
 
