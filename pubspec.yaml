@@ -1,6 +1,6 @@
 name: linalg
 description: A Simple Linear Algebra Package enabling easy Matrix calculations.
-version: 0.0.5
+version: 0.0.6
 author: Ron Bessems <rbessems@gmail.com>
 homepage: https://github.com/altera2015/linalg
 
