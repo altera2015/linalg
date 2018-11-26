@@ -1,7 +1,9 @@
 library linalg.test;
 
-import 'linalg_test.dart' as linAlg;
+import 'matrix_test.dart' as matrixTest;
+import 'vector_test.dart' as vectorTest;
 
 void main() {
-  linAlg.main();
+  matrixTest.main();
+  vectorTest.main();
 }

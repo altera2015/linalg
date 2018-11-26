@@ -1,7 +1,23 @@
 import 'package:linalg/linalg.dart';
 
+void readMeExample() {
+  final Matrix a = Matrix([
+    [1, 2],
+    [3, 4]
+  ]);
+  final Vector b = Vector.column([2, 3]);
+  final Matrix e = Matrix([
+    [8],
+    [18]
+  ]);
+  Matrix result = a * b;
+  print(result);
+  print(result == e);
+}
+
 /// Example code for using the Matrix class.
 void main() {
+  readMeExample();
 
   // *****************************
   // Lets solve a linear equation.
@@ -20,18 +36,25 @@ void main() {
   // Where I = identity matrix
   //
   // A = E * B'
-  final Matrix B = Matrix([[2.0, 0.0], [1.0, 2.0]]);
-  final Matrix E = Matrix([[4.0, 4.0], [10.0, 8.0]]);
-
+  final Matrix B = Matrix([
+    [2.0, 0.0],
+    [1.0, 2.0]
+  ]);
+  final Matrix E = Matrix([
+    [4.0, 4.0],
+    [10.0, 8.0]
+  ]);
 
   Matrix Bi = B.inverse();
   Matrix A_calc = E * Bi;
 
-  final Matrix A = Matrix([[1.0, 2.0], [3.0, 4.0]]);
-  print("The calculated A = $A_calc, the expected A is $A, they are ${A_calc==A?'':'not'} the same.");
+  final Matrix A = Matrix([
+    [1.0, 2.0],
+    [3.0, 4.0]
+  ]);
+  print(
+      "The calculated A = $A_calc, the expected A is $A, they are ${A_calc == A ? '' : 'not'} the same.");
   // Expected: The calculated A = [[1.0, 2.0], [3.0, 4.0]], the expected A is [[1.0, 2.0], [3.0, 4.0]], they are  the same.
-
-
 
   // *****************************
   // Lets do some more matrix math

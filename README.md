@@ -14,11 +14,16 @@ Just a quick example on how to do matrix multiplication.
 
 ```dart
 final Matrix a = Matrix([[1, 2], [3, 4]]);
-final Matrix b = Matrix([[2, 0], [1, 2]]);
-final Matrix e = Matrix([[4, 4], [10, 8]]);
-Matrix result = a * b
-print(result)
-print(result == e)
+final Vector b = Vector.column([2, 3]);
+final Matrix e = Matrix([[8], [18]]);
+Matrix result = a * b;
+print(result);
+print(result == e);
+```
+This prints
+```dart
+[[8.0], [18.0]]
+true
 ```
 
 ## Complete Example
@@ -85,7 +90,7 @@ Add linalg as a dependency to your flutter project.
 
 ```yaml
 dependencies:
-  linalg: ^0.0.1
+  linalg: ^0.0.5
 ```
 
 and at the top of your dart file add:
