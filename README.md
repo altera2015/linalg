@@ -4,7 +4,7 @@
 
 A Simple Linear Algebra Package. 
 
-This package is intended to be a portable easy to use linear algebra package. It does not have any dependencies outside of flutter itself, thus making it portable and easy to integrate.
+This package is intended to be a portable easy to use linear algebra package. It does not have any dependencies outside of Dart itself, thus making it portable and easy to integrate.
 
 Our goal is to keep the code readable, documented and maintainable.
 
@@ -28,7 +28,7 @@ true
 
 ## Complete Example
 
-A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Matrix-class.html) for the full details.
+A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Matrix-class.html) and [Vector API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Vector-class.html) for the full details.
 
 ```dart
 import 'package:linalg/linalg.dart';

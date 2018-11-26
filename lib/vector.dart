@@ -12,6 +12,21 @@ enum VectorType { row, column }
 /// is going on with basic linear algebra knowledge.
 ///
 /// The vector can be either a row or column vector.
+///
+///
+/// ```dart
+///final Matrix a = Matrix([[1, 2], [3, 4]]);
+///final Vector b = Vector.column([2, 3]);
+///final Matrix e = Matrix([[8], [18]]);
+///Matrix result = a * b;
+///print(result);
+///print(result == e);
+///```
+///This prints
+///```dart
+///[[8.0], [18.0]]
+///true
+///```
 class Vector {
   Vector._(this._matrix, this._vectorType) {
     if (_vectorType == VectorType.row && this._matrix.m != 1) {
