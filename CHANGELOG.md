@@ -1,3 +1,11 @@
+## [0.10.0] -- 11/26/2018
+
+* Slight documentation modifications.
+
+## [0.0.6] -- 11/26/2018
+
+* Added Vector class.
+
 ## [0.0.5] -- 11/21/2018
 
 * Dart minimum back to 2.0.0 fixed linter errors.

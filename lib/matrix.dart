@@ -33,6 +33,20 @@ class MatrixUnsupportedOperation extends MatrixException {
 /// performance but for readability. You should be
 /// able to read the functions and understand what
 /// is going on with basic linear algebra knowledge.
+///
+/// ```dart
+///final Matrix a = Matrix([[1, 2], [3, 4]]);
+///final Vector b = Vector.column([2, 3]);
+///final Matrix e = Matrix([[8], [18]]);
+///Matrix result = a * b;
+///print(result);
+///print(result == e);
+///```
+///This prints
+///```dart
+///[[8.0], [18.0]]
+///true
+///```
 class Matrix {
   /// Constructs a matrix from a List<List<double>> value.
   ///
