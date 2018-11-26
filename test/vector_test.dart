@@ -119,6 +119,16 @@ void main() {
       expect(~a, Vector.fillRow(4, -4.0));
     });
 
+    test("toString row",(){
+      final Vector a = Vector.fillRow(4, 4.0);
+      expect(a.toString(), "[4.0, 4.0, 4.0, 4.0]");
+    });
+
+    test("toString column",(){
+      final Vector a = Vector.fillColumn(4, 4.0);
+      expect(a.toString(), "[\n\t4.0,\n\t4.0,\n\t4.0,\n\t4.0\n]\n");
+    });
+
     test("Exception: Matrix to Vector that is not a vector", () {
       final Matrix a = Matrix.eye(2);
       expect(() => Vector.fromMatrix(a),
