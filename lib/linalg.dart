@@ -36,13 +36,10 @@ class Matrix {
 
   /// Constructs a matrix from a List<List<double>> value.
   ///
-  /// Throws an [MatrixUnsupportedOperation] if the passed parameter is of the
-  /// wrong type.
-  Matrix(this._values) {
-    if (!(this._values is List<List<double>> )) {
-      throw MatrixUnsupportedOperation();
-    }
-  }
+  /// ```dart
+  /// Matrix a = Matrix([[1.0,2.0],[3.0,4.0],[5.0,6.0]])
+  /// ```
+  Matrix(this._values);
 
   /// Constructs a [m]x[n] (rows x cols) Matrix fill with [fill=0.0].
   ///
@@ -68,7 +65,7 @@ class Matrix {
 
   static List<List<double>> _createStore(int m, int n, double fill) {
     if ( m <= 0 || n <= 0 ) {
-      throw MatrixUnsupportedOperation("m and n must be positive.");
+      throw MatrixInvalidDimensions("m and n must be positive.");
     }
     List<List<double>> toRet = List<List<double>>();
     for (int i = 0; i < m; i++) {
@@ -167,21 +164,21 @@ class Matrix {
     return this.map((x) => -x);
   }
 
+  static bool _isClose(double a, double b, [double relTol=1e-9, double absTol=0.0] ) {
+    // double diff = a - b;
+    // diff = diff.abs();
+    return (a-b).abs() <= max( relTol * max(a.abs(), b.abs()), absTol);
+  }
+
+
   /// Equality check for each element in the matrix.
   @override
   bool operator ==(dynamic other) {
-
-    bool isClose(double a, double b, [double relTol=1e-9, double absTol=0.0] ) {
-      double diff = a - b;
-      diff = diff.abs();
-      return diff <= max( relTol * max(a.abs(), b.abs()), absTol);
-    }
-
     if (other is Matrix) {
       if (this.m == other.m && this.n == other.n) {
         for (int i = 0; i < m; i++) {
           for (int j = 0; j < n; j++) {
-            if ( !isClose(this[i][j], other[i][j])){
+            if ( !_isClose(this[i][j], other[i][j])){
               return false;
             }
           }
@@ -233,7 +230,7 @@ class Matrix {
   /// will print
   ///
   /// ```
-  /// [1.0, 3.0, 5.0],[2.0,4.0,6.0]]
+  /// [[1.0, 3.0, 5.0],[2.0,4.0,6.0]]
   /// ```
   Matrix transpose() {
     Matrix toReturn = new Matrix.fill(n, m);
@@ -373,7 +370,7 @@ class Matrix {
     }
 
     if ( this.m < 3 ) {
-      throw MatrixUnsupportedOperation();
+      throw MatrixInvalidDimensions();
     }
 
     Matrix cf = Matrix.fill(m, n, 0.0);
@@ -395,7 +392,7 @@ class Matrix {
   /// Throws [MatrixInvalidDimensions] if the matrix was not square.
   Matrix inverse() {
     double d = det();
-    if ( d == 0 ) {
+    if ( _isClose(d, 0.0) ) {
       throw new MatrixNoInverseException();
     }
 
