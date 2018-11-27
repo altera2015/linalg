@@ -109,7 +109,7 @@ class Matrix {
   /// Matrix a = Matrix.eye(2);
   /// Matrix b = Matrix.fill(2,2, 10);
   ///
-  /// print( a * b )
+  /// print( a * b );
   /// ```
   ///
   /// Throws an [MatrixUnsupportedOperation] error if the

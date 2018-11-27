@@ -53,11 +53,12 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.row([1.0,2.0,3.0]);
-  /// print(v)
+  /// print(v);
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [1.0,2.0,3.0]
+  /// ```
   factory Vector.row(List<double> values) {
     return Vector._(Matrix([values]), VectorType.row);
   }
@@ -66,15 +67,17 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.column([1.0,2.0,3.0]);
-  /// print(v)
+  /// print(v);
   /// ```
   ///
   /// prints
+  /// ```dart
   /// [
   ///   1.0,
   ///   2.0,
   ///   3.0
   /// ]
+  /// ```
   factory Vector.column(List<double> values) {
     return Vector._(
         Matrix(List<List<double>>.generate(values.length, (index) {
@@ -87,11 +90,12 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.row(3, 1.0);
-  /// print(v)
+  /// print(v);
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [1.0,1.0,1.0]
+  /// ```
   factory Vector.fillRow(int count, [double fill = 0.0]) {
     return Vector.row(List<double>.filled(count, fill));
   }
@@ -100,15 +104,16 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.fillColumn(3, 1.0);
-  /// print(v)
+  /// print(v);
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [
   ///   1.0,
   ///   1.0,
   ///   1.0
   /// ]
+  /// ```
   factory Vector.fillColumn(int count, [double fill = 0.0]) {
     return Vector.column(List<double>.filled(count, fill));
   }
@@ -120,12 +125,12 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.column([1.0,2.0,3.0]);
-  /// print(v[1])
+  /// print(v[1]);
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// 2.0
-  ///
+  /// ```
   double operator [](int element) {
     if (_vectorType == VectorType.row) {
       return _matrix[0][element];
@@ -161,15 +166,16 @@ class Vector {
   ///
   /// ```dart
   /// Vector v = Vector.fillRow(3, 1.0);
-  /// print(v.transpose())
+  /// print(v.transpose());
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [
   ///   1.0,
   ///   1.0,
   ///   1.0
   /// ]
+  /// ```
   Vector transpose() {
     return Vector._(_matrix.transpose(),
         _vectorType == VectorType.row ? VectorType.column : VectorType.row);
@@ -180,11 +186,12 @@ class Vector {
   /// ```dart
   /// Vector a = Vector.fillRow(3, 1.0);
   /// Vector b = Vector.fillRow(3, 2.0);
-  /// print( a + b )
+  /// print( a + b );
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [3.0,3.0,3.0]
+  /// ```
   Vector operator +(Vector other) {
     return Vector._(other._matrix + this._matrix, _vectorType);
   }
@@ -194,11 +201,13 @@ class Vector {
   /// ```dart
   /// Vector a = Vector.fillRow(3, 3.0);
   /// Vector b = Vector.fillRow(3, 1.0);
-  /// print( a + b )
+  /// print( a + b );
   /// ```
   ///
   /// prints
+  /// ```dart
   /// [2.0,2.0,2.0]
+  /// ```
   Vector operator -(Vector other) {
     return Vector._(this._matrix - other._matrix, _vectorType);
   }
@@ -210,16 +219,34 @@ class Vector {
     return map((x) => -x);
   }
 
-  /// Multiplies two vectors, note the return value is a [Matrix]!
+  /// Multiplies two vectors, note the return value is a [Matrix]. If you need
+  /// a scalar result add [0][0], and if you need the [Vector] result add .toVector()
   ///
+  /// ## Scalar Result
   /// ```dart
   /// Vector a = Vector.fillRow(3, 3.0);
-  /// Vector b = Vector.column(3, 3.0);
-  /// print( a * b )
+  /// Vector b = Vector.fillColumn(3, 3.0);
+  /// double v = ( a * b )[0][0];
+  /// print(v);
+  /// ```
+  /// prints "27"
+  ///
+  /// ## Vector Result
+  /// ```dart
+  /// final Matrix a = Matrix([[1.0, 2.0, 3.0],[2.0,3.0,4.0]]);
+  /// final Vector b = Vector.fillColumn(3, 3.0);
+  /// final Vector result = ( a * b ).toVector();
+  /// print(result);
   /// ```
   ///
-  /// prints
-  /// [27.0]
+  /// Will print
+  ///
+  /// ```dart
+  /// [
+  ///        18.0,
+  ///        27.0
+  ///]
+  ///```
   Matrix operator *(dynamic other) {
     return this._matrix * other;
   }
@@ -235,11 +262,12 @@ class Vector {
   /// ```dart
   /// Vector a = Vector.fillRow(3, 3.0);
   /// Vector b = a.map((v) => v*2);
-  /// print( b )
+  /// print( b );
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [6.0, 6.0, 6.0]
+  /// ```
   Vector map(MatrixMapFunc f) {
     Matrix toReturn = new Matrix.fill(this._matrix.m, this._matrix.n);
     for (int i = 0; i < this._matrix.m; i++) {
@@ -254,12 +282,13 @@ class Vector {
   ///
   /// ```dart
   /// Vector a = Vector.fillRow(4, 4.0);
-  /// Vector b = a.normalize()
-  /// print( b )
+  /// Vector b = a.normalize();
+  /// print( b );
   /// ```
-  ///
   /// prints
+  /// ```dart
   /// [0.5, 0.5, 0.5, 0.5]
+  /// ```
   Vector normalize() {
     return Vector.fromMatrix(this._matrix * (1.0 / magnitude()));
   }
