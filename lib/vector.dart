@@ -1,3 +1,5 @@
+library linalg.vector;
+
 import 'dart:core';
 import 'dart:math';
 import 'matrix.dart';
