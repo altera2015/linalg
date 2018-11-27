@@ -119,19 +119,52 @@ void main() {
       expect(~a, Vector.fillRow(4, -4.0));
     });
 
-    test("toString row",(){
+    test("toString row", () {
       final Vector a = Vector.fillRow(4, 4.0);
       expect(a.toString(), "[4.0, 4.0, 4.0, 4.0]");
     });
 
-    test("toString column",(){
+    test("toString column", () {
       final Vector a = Vector.fillColumn(4, 4.0);
       expect(a.toString(), "[\n\t4.0,\n\t4.0,\n\t4.0,\n\t4.0\n]\n");
+    });
+
+    test("crossProduct", () {
+      final Vector a = Vector.column([2.0, 3.0, 4.0]);
+      final Vector b = Vector.column([5.0, 6.0, 7.0]);
+      expect(a.crossProduct(b), Vector.column([-3.0, 6.0, -3.0]));
+    });
+
+    test("dotProduct", () {
+      final Vector a = Vector.column([2.0, 3.0, 4.0]);
+      final Vector b = Vector.column([5.0, 6.0, 7.0]);
+      expect(a.dotProduct(b), 56.0);
     });
 
     test("Exception: Matrix to Vector that is not a vector", () {
       final Matrix a = Matrix.eye(2);
       expect(() => Vector.fromMatrix(a),
+          throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+    });
+
+    test("Exception: crossProduct on 4d Vector", () {
+      final Vector a = Vector.fillColumn(4);
+      final Vector b = Vector.fillColumn(4);
+      expect(() => a.crossProduct(b),
+          throwsA(TypeMatcher<MatrixUnsupportedOperation>()));
+    });
+
+    test("Exception: crossProduct on disparate vectors", () {
+      final Vector a = Vector.fillColumn(3);
+      final Vector b = Vector.fillColumn(2);
+      expect(() => a.crossProduct(b),
+          throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+    });
+
+    test("Exception: dotProduct on disparate vectors", () {
+      final Vector a = Vector.fillColumn(3);
+      final Vector b = Vector.fillColumn(2);
+      expect(() => a.dotProduct(b),
           throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
   });

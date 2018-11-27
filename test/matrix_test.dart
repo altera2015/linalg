@@ -278,6 +278,17 @@ void main() {
           ]));
     });
 
+    test('Matrix trace', () {
+      expect(
+          Matrix([
+            [1.0, 2.0, 1.0, 0.0],
+            [0.0, 3.0, 1.0, 1.0],
+            [-1.0, 0.0, 3.0, 1.0],
+            [3.0, 1.0, 2.0, 0.0]
+          ]).trace(),
+          7.0);
+    });
+
     // Test exceptions
 
     test("Exception: Creating matrix with invalid dimensions", () {
@@ -340,5 +351,15 @@ void main() {
       expect(
           () => a.toVector(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
+
+    test("Exception: Trace on non-square matrix", () {
+      final Matrix a = Matrix([
+        [1.0, 3.0, 3.0],
+        [2.0, 6.0, 6.0]
+      ]);
+      expect(
+              () => a.trace(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+    });
+
   });
 }
