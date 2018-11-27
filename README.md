@@ -28,7 +28,7 @@ true
 
 ## Complete Example
 
-A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Matrix-class.html) and [Vector API](https://pub.dartlang.org/documentation/linalg/latest/linalg/Vector-class.html) for the full details.
+A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/matrix/Matrix-class.html) and [Vector API](https://pub.dartlang.org/documentation/linalg/latest/vector/Vector-class.html) for the full details.
 
 ```dart
 import 'package:linalg/linalg.dart';
@@ -90,7 +90,7 @@ Add linalg as a dependency to your flutter project.
 
 ```yaml
 dependencies:
-  linalg: ^0.0.5
+  linalg: ^0.1.1
 ```
 
 and at the top of your dart file add:
