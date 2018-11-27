@@ -28,7 +28,7 @@ true
 
 ## Complete Example
 
-A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/matrix/Matrix-class.html) and [Vector API](https://pub.dartlang.org/documentation/linalg/latest/vector/Vector-class.html) for the full details.
+A more extensive example with various matrix operations. See the [Matrix API](https://pub.dartlang.org/documentation/linalg/latest/linalg.matrix/Matrix-class.html) and [Vector API](https://pub.dartlang.org/documentation/linalg/latest/linalg.vector/Vector-class.html) for the full details.
 
 ```dart
 import 'package:linalg/linalg.dart';
