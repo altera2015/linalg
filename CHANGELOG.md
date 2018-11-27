@@ -1,3 +1,8 @@
+## [0.10.1] -- 11/27/2018
+
+* Documentation updates
+* Added Matrix.trace, Vector.crossProduct and Vector.dotProduct
+
 ## [0.10.0] -- 11/26/2018
 
 * Slight documentation modifications.
