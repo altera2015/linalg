@@ -34,6 +34,8 @@ class MatrixUnsupportedOperation extends MatrixException {
 /// able to read the functions and understand what
 /// is going on with basic linear algebra knowledge.
 ///
+/// For more reading see the page about [Matrix Math at Wikipedia]([Matrix](https://en.wikipedia.org/wiki/Matrix_(mathematics))
+///
 /// ```dart
 ///final Matrix a = Matrix([[1, 2], [3, 4]]);
 ///final Vector b = Vector.column([2, 3]);
@@ -103,7 +105,7 @@ class Matrix {
   /// Unlike math class indexes start at zero.
   List<double> operator [](int m) => _values[m];
 
-  /// Multiply an Matrix with a Matrix or a scalar
+  /// [Multiply](https://en.wikipedia.org/wiki/Matrix_multiplication) an Matrix with a Matrix or a scalar
   ///
   /// ```dart
   /// Matrix a = Matrix.eye(2);
@@ -237,7 +239,7 @@ class Matrix {
     return toReturn;
   }
 
-  /// Transposes the matrix
+  /// [Transposes](https://en.wikipedia.org/wiki/Transpose) the matrix
   ///
   /// ```dart
   /// Matrix a = Matrix([[1.0,2.0],[3.0,4.0],[5.0,6.0]])
@@ -418,6 +420,29 @@ class Matrix {
       i = i.transpose();
       return i * (1 / d);
     }
+  }
+
+  /// Calculates the [trace](https://en.wikipedia.org/wiki/Trace_(linear_algebra)) of the [Matrix].
+  ///
+  /// Throws [MatrixInvalidDimensions] if the [Matrix] is not square.
+  ///
+  /// ```dart
+  /// final Matrix a = Matrix([ [ 1.0, 2.0, 3.0], [1.0,3.0,6.0], [0.0, 5.0, 1.0] ]);
+  /// print(a.trace());
+  /// ```
+  /// prints
+  /// ```
+  /// 5.0
+  /// ```
+  double trace() {
+    if (this.m != this.n) {
+      throw MatrixInvalidDimensions();
+    }
+    double tr = 0.0;
+    for (int i = 0; i < this.m; i++) {
+      tr += this[i][i];
+    }
+    return tr;
   }
 
   /// Prints the content of the matrix.

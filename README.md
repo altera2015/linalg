@@ -4,7 +4,7 @@
 
 A Simple Linear Algebra Package. 
 
-This package is intended to be a portable easy to use linear algebra package. It does not have any dependencies outside of Dart itself, thus making it portable and easy to integrate.
+This package is intended to be a portable, easy to use linear algebra package. It does not have any dependencies outside of Dart itself, thus making it portable and easy to integrate.
 
 Our goal is to keep the code readable, documented and maintainable.
 

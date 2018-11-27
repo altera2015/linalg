@@ -12,7 +12,7 @@ enum VectorType { row, column }
 /// is going on with basic linear algebra knowledge.
 ///
 /// The vector can be either a row or column vector.
-///
+/// [More reading about vectors](https://en.wikipedia.org/wiki/Euclidean_vector)
 ///
 /// ```dart
 ///final Matrix a = Matrix([[1, 2], [3, 4]]);
@@ -145,7 +145,7 @@ class Vector {
   /// Returns the [VectorType] of the vector.
   VectorType get type => _vectorType;
 
-  /// Returns the magnitude or length of the vector.
+  /// Returns the magnitude, length or [Euclidean norm](https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of the vector.
   ///
   /// ```dart
   /// Vector v = Vector([1.0, 1.0, 1.0]);
@@ -162,7 +162,7 @@ class Vector {
     return sqrt(v);
   }
 
-  /// Transposes a Vector from row or column to column or row.
+  /// [Transposes](https://en.wikipedia.org/wiki/Transpose) a Vector from row or column to column or row.
   ///
   /// ```dart
   /// Vector v = Vector.fillRow(3, 1.0);
@@ -278,7 +278,7 @@ class Vector {
     return Vector._(toReturn, _vectorType);
   }
 
-  /// Normalizes this [Vector] to have magnitude 1.0
+  /// [Normalizes](https://en.wikipedia.org/wiki/Unit_vector) this [Vector] to have magnitude 1.0
   ///
   /// ```dart
   /// Vector a = Vector.fillRow(4, 4.0);
@@ -291,6 +291,66 @@ class Vector {
   /// ```
   Vector normalize() {
     return Vector.fromMatrix(this._matrix * (1.0 / magnitude()));
+  }
+
+  /// Calculates the [cross product](https://en.wikipedia.org/wiki/Cross_product) for two 3-dimensional vectors.
+  ///
+  /// Throws [MatrixUnsupportedOperation] for vectors with other dimensions.
+  /// Throws [MatrixInvalidDimensions] if both vectors do not have the same number of elements.
+  /// ```dart
+  /// final Vector a = Vector.column([2.0,3.0,4.0]);
+  /// final Vector b = Vector.column([5.0,6.0,7.0]);
+  /// print(a.crossProduct(b));
+  /// ```
+  /// prints
+  /// ```dart
+  /// [-3.0, 6.0, -3.0]
+  /// ```
+  Vector crossProduct(Vector other) {
+    if (this.elements != 3) {
+      throw MatrixUnsupportedOperation(
+          "Cross product only implemented for 3 dimensional vectors.");
+    }
+    if (this.elements != other.elements) {
+      throw MatrixInvalidDimensions(
+          "Cross product requires both vectors to have 3 elements.");
+    }
+
+    List<double> values = List<double>();
+
+    values.add(this[1] * other[2] - this[2] * other[1]);
+    values.add(this[2] * other[0] - this[0] * other[2]);
+    values.add(this[0] * other[1] - this[1] * other[0]);
+
+    if (this.type == VectorType.row) {
+      return Vector.row(values);
+    } else {
+      return Vector.column(values);
+    }
+  }
+
+  /// Calculates the [dot product](https://en.wikipedia.org/wiki/Dot_product) for two 3-dimensional vectors.
+  ///
+  /// Throws [MatrixInvalidDimensions] if both vectors do not have the same number of elements.
+  /// ```dart
+  /// final Vector a = Vector.column([2.0,3.0,4.0]);
+  /// final Vector b = Vector.column([5.0,6.0,7.0]);
+  /// print(a.crossProduct(b));
+  /// ```
+  /// prints
+  /// ```dart
+  /// 56.0
+  /// ```
+  double dotProduct(Vector other) {
+    if (this.elements != other.elements) {
+      throw MatrixInvalidDimensions(
+          "Dot product requires both vectors to have the same number of elements.");
+    }
+    double p = 0.0;
+    for (int i = 0; i < this.elements; i++) {
+      p += this[i] * other[i];
+    }
+    return p;
   }
 
   /// Returns the [hashCode] for the matrix.
