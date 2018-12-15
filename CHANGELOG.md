@@ -1,9 +1,14 @@
-## [0.10.1] -- 11/27/2018
+## [0.2.0] -- 12/15/2018
+
+* Added Vector.sum, Vector.mean, Vector.norm, Vector.manhattanNorm and Vector.toList with tests and docs.
+* Deprecated Vector.distance for the better name Vector.norm.
+
+## [0.1.1] -- 11/27/2018
 
 * Documentation updates
 * Added Matrix.trace, Vector.crossProduct and Vector.dotProduct
 
-## [0.10.0] -- 11/26/2018
+## [0.1.0] -- 11/26/2018
 
 * Slight documentation modifications.
 
