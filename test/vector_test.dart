@@ -56,6 +56,22 @@ void main() {
       expect(c.magnitude(), sqrt(14));
     });
 
+    test("norm", () {
+      final Vector c = Vector.column([1.0, 2.0, 3.0]);
+      expect(c.norm(), sqrt(14));
+      expect(c.manhattanNorm(), 6.0);
+    });
+
+    test("sum", () {
+      final Vector c = Vector.column([1.0, -1.0, 1.0]);
+      expect(c.sum(), 1.0);
+    });
+
+    test("mean", () {
+      final Vector c = Vector.column([1.0, -1.0, 1.0]);
+      expect(c.mean(), 1.0 / 3.0);
+    });
+
     test("transpose", () {
       final Vector c = Vector.column([1.0, 2.0, 3.0]);
       final Vector tc = c.transpose();

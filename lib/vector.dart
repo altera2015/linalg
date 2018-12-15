@@ -53,6 +53,10 @@ class Vector {
 
   /// Creates a row vector from the list of values given.
   ///
+  /// Note that a reference to the list is used, not a deep
+  /// copy. If you change the [values] List after passing
+  /// into this vector the vector changes as well.
+  ///
   /// ```dart
   /// Vector v = Vector.row([1.0,2.0,3.0]);
   /// print(v);
@@ -156,12 +160,77 @@ class Vector {
   ///
   /// will print 1.7320508
   ///
+  @deprecated
   double magnitude() {
+    return norm();
+  }
+
+  /// Returns the [Euclidean norm](https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of the vector.
+  ///
+  /// ```dart
+  /// Vector v = Vector([1.0, 1.0, 1.0]);
+  /// print(v.norm());
+  /// ```
+  ///
+  /// will print 1.7320508
+  ///
+  double norm() {
     double v = 0.0;
     for (int i = 0; i < elements; i++) {
       v += this[i] * this[i];
     }
     return sqrt(v);
+  }
+
+  /// Returns the [Manhattan norm](https://en.wikipedia.org/wiki/Norm_(mathematics)#Taxicab_norm_or_Manhattan_norm) of the vector.
+  ///
+  /// ```dart
+  /// Vector v = Vector([1.0, 1.0, 1.0]);
+  /// print(v.manhattanNorm());
+  /// ```
+  ///
+  /// will print 3.0
+  ///
+  double manhattanNorm() {
+    double v = 0.0;
+    for (int i = 0; i < elements; i++) {
+      v += this[i].abs();
+    }
+    return v;
+  }
+
+  /// Returns element wise sum of the vector.
+  ///
+  /// ```dart
+  /// Vector v = Vector([1.0, -1.0, 1.0]);
+  /// print(v.sum());
+  /// ```
+  ///
+  /// will print 1.0
+  ///
+  double sum() {
+    double v = 0.0;
+    for (int i = 0; i < elements; i++) {
+      v += this[i];
+    }
+    return v;
+  }
+
+  /// Returns element wise mean of the vector.
+  ///
+  /// ```dart
+  /// Vector v = Vector([1.0, 1.0, 1.0]);
+  /// print(v.mean());
+  /// ```
+  ///
+  /// will print 1.0
+  ///
+  double mean() {
+    double v = 0.0;
+    for (int i = 0; i < elements; i++) {
+      v += this[i];
+    }
+    return v / elements;
   }
 
   /// [Transposes](https://en.wikipedia.org/wiki/Transpose) a Vector from row or column to column or row.
@@ -292,7 +361,7 @@ class Vector {
   /// [0.5, 0.5, 0.5, 0.5]
   /// ```
   Vector normalize() {
-    return Vector.fromMatrix(this._matrix * (1.0 / magnitude()));
+    return Vector.fromMatrix(this._matrix * (1.0 / norm()));
   }
 
   /// Calculates the [cross product](https://en.wikipedia.org/wiki/Cross_product) for two 3-dimensional vectors.
@@ -375,7 +444,32 @@ class Vector {
   }
 
   /// Returns the [Matrix] representation of this [Vector]
+  ///
+  /// Note this is a reference to the internal matrix of the
+  /// vector. Changes to the returned matrix will also affect the
+  /// vector.
   Matrix toMatrix() {
     return _matrix;
+  }
+
+  /// Returns the [List<double>] of this [Vector]
+  ///
+  /// Note if the vector is a row vector a reference to the
+  /// internal data is returned. Any changes to that data
+  /// affect the vector as well.
+  ///
+  /// If the vector is a column vector a copy of the vector
+  /// is returned and changes to the returned list will
+  /// _not_ affect the vector.
+  List<double> toList() {
+    if (_vectorType == VectorType.row) {
+      return this._matrix[0];
+    } else {
+      List<double> l = List<double>(this.elements);
+      for (int i = 0; i < this.elements; i++) {
+        l[i] = this[i];
+      }
+      return l;
+    }
   }
 }
