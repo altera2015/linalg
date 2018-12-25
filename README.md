@@ -4,7 +4,8 @@
 
 A Simple Linear Algebra Package. 
 
-This package is intended to be a portable, easy to use linear algebra package. It does not have any dependencies outside of Dart itself, thus making it portable and easy to integrate.
+This package is intended to be a portable, easy to use linear algebra package. The library does not have any dependencies outside of Dart itself, thus making it portable and easy to integrate.
+Internally all numbers are stored as Dart Doubles ( 64 bit as specified in the IEEE 754 standard ).
 
 Our goal is to keep the code readable, documented and maintainable.
 
@@ -90,7 +91,7 @@ Add linalg as a dependency to your flutter project.
 
 ```yaml
 dependencies:
-  linalg: ^0.1.1
+  linalg: ^0.3.0
 ```
 
 and at the top of your dart file add:

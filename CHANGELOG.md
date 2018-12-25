@@ -1,3 +1,8 @@
+## [0.3.0] -- 12/24/2018
+
+* Added matrix.columnVector, Matrix.rowVector and Matrix.copy
+* Changed toVector to create a deep copy by default, but allowed it to reuse Matrix storage for performance.
+
 ## [0.2.0] -- 12/15/2018
 
 * Added Vector.sum, Vector.mean, Vector.norm, Vector.manhattanNorm and Vector.toList with tests and docs.
