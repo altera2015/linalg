@@ -145,16 +145,60 @@ void main() {
       expect(a.toString(), "[\n\t4.0,\n\t4.0,\n\t4.0,\n\t4.0\n]\n");
     });
 
-    test("crossProduct", () {
+    test("crossProduct column", () {
       final Vector a = Vector.column([2.0, 3.0, 4.0]);
       final Vector b = Vector.column([5.0, 6.0, 7.0]);
       expect(a.crossProduct(b), Vector.column([-3.0, 6.0, -3.0]));
+    });
+
+    test("crossProduct row", () {
+      final Vector a = Vector.row([2.0, 3.0, 4.0]);
+      final Vector b = Vector.row([5.0, 6.0, 7.0]);
+      expect(a.crossProduct(b), Vector.row([-3.0, 6.0, -3.0]));
+    });
+
+    test("toList column", () {
+      final Vector a = Vector.column([2.0, 3.0, 4.0]);
+      expect(a.toList(), [2.0, 3.0, 4.0]);
+    });
+
+    test("toList row", () {
+      final Vector a = Vector.row([2.0, 3.0, 4.0]);
+      List<double> b = a.toList();
+      a[1] = 10.0;
+      expect(b, [2.0, 3.0, 4.0]);
+    });
+
+    test("toList row deepCopy = false", () {
+      final Vector a = Vector.row([2.0, 3.0, 4.0]);
+      List<double> b = a.toList(false);
+      a[1] = 10.0;
+      expect(b, [2.0, 10.0, 4.0]);
+    });
+
+    test("toList column", () {
+      final Vector a = Vector.column([2.0, 3.0, 4.0]);
+      List<double> b = a.toList();
+      a[1] = 10.0;
+      expect(b, [2.0, 3.0, 4.0]);
     });
 
     test("dotProduct", () {
       final Vector a = Vector.column([2.0, 3.0, 4.0]);
       final Vector b = Vector.column([5.0, 6.0, 7.0]);
       expect(a.dotProduct(b), 56.0);
+    });
+
+    test("element access row", () {
+      final Vector a = Vector.row([2.0, 3.0, 4.0]);
+      a[1] = 4.0;
+      expect(a, Vector.row([2.0, 4.0, 4.0]));
+    });
+
+    test("element access column", () {
+      final Vector a = Vector.column([2.0, 3.0, 4.0]);
+      a[1] = 4.0;
+      expect(a, Vector.column([2.0, 4.0, 4.0]));
     });
 
     test("Exception: Matrix to Vector that is not a vector", () {
@@ -182,6 +226,12 @@ void main() {
       final Vector b = Vector.fillColumn(2);
       expect(() => a.dotProduct(b),
           throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+    });
+
+    test("Exception: column vector to list with shared memory.", () {
+      final Vector a = Vector.fillColumn(3);
+      expect(() => a.toList(false),
+          throwsA(TypeMatcher<MatrixUnsupportedOperation>()));
     });
   });
 }
