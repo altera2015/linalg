@@ -289,6 +289,77 @@ void main() {
           7.0);
     });
 
+    test('columnVector', () {
+      Matrix m = Matrix([
+        [1.0, 2.0, 3.0, 1.0],
+        [4.0, 5.0, 6.0, 2.0],
+        [7.0, 8.0, 9.0, 3.0],
+      ]);
+
+      Vector vc = m.columnVector(0);
+      expect(vc, Vector.column([1.0, 4.0, 7.0]));
+
+      // columnVector is always a deep copy
+      m[0][0] = 100.0;
+      expect(vc, Vector.column([1.0, 4.0, 7.0]));
+    });
+
+    test('toVector deepCopy', () {
+      Matrix m = Matrix([
+        [1.0, 2.0, 3.0, 1.0],
+      ]);
+
+      Vector vc = m.toVector();
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+
+      // rowVector by default is a deep copy.
+      m[0][0] = 100.0;
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+    });
+
+    test('toVector reference', () {
+      Matrix m = Matrix([
+        [1.0, 2.0, 3.0, 1.0],
+      ]);
+
+      Vector vc = m.toVector(false);
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+
+      // rowVector by default is a deep copy.
+      m[0][0] = 100.0;
+      expect(vc, Vector.row([100.0, 2.0, 3.0, 1.0]));
+    });
+
+    test('rowVector deepCopy', () {
+      Matrix m = Matrix([
+        [1.0, 2.0, 3.0, 1.0],
+        [4.0, 5.0, 6.0, 2.0],
+        [7.0, 8.0, 9.0, 3.0],
+      ]);
+
+      Vector vc = m.rowVector(0);
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+
+      // rowVector by default is a deep copy.
+      m[0][0] = 100.0;
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+    });
+
+    test('rowVector reference', () {
+      Matrix m = Matrix([
+        [1.0, 2.0, 3.0, 1.0],
+        [4.0, 5.0, 6.0, 2.0],
+        [7.0, 8.0, 9.0, 3.0],
+      ]);
+
+      Vector vc = m.rowVector(0, false);
+      expect(vc, Vector.row([1.0, 2.0, 3.0, 1.0]));
+
+      // rowVector with forces shared storage.
+      m[0][0] = 100.0;
+      expect(vc, Vector.row([100.0, 2.0, 3.0, 1.0]));
+    });
+
     // Test exceptions
 
     test("Exception: Creating matrix with invalid dimensions", () {
@@ -357,9 +428,7 @@ void main() {
         [1.0, 3.0, 3.0],
         [2.0, 6.0, 6.0]
       ]);
-      expect(
-              () => a.trace(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+      expect(() => a.trace(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
-
   });
 }

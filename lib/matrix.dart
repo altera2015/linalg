@@ -451,11 +451,104 @@ class Matrix {
   @override
   String toString() => _values.toString();
 
+  /// Returns a deep copy of the Matrix.
+  Matrix copy() {
+    List<List<double>> storage = List<List<double>>();
+    for (int i = 0; i < m; i++) {
+      storage.add(List<double>.generate(n, (j) => this[i][j]));
+    }
+    return Matrix(storage);
+  }
+
   /// Returns the [Vector] representation of this [Matrix] if
   /// one of it's dimensions is 1.
   ///
+  /// Note that by default this function returns a vector
+  /// that does not shares its storage with the matrix, but
+  /// allocates it's own memory. This means you can freely
+  /// change the matrix after creating the vector and the vector
+  /// will be unaffected.
+  ///
+  /// If you wish to share the storage with the matrix for
+  /// performance reasons pass [deepCopy = false]. This means
+  /// that changes to the matrix also appear in the vector.
+  ///
   /// Throws [MatrixInvalidDimensions] if m or n are not 1.
-  Vector toVector() {
-    return Vector.fromMatrix(this);
+  Vector toVector([bool deepCopy = true]) {
+    if (deepCopy) {
+      return Vector.fromMatrix(this.copy());
+    } else {
+      return Vector.fromMatrix(this);
+    }
+  }
+
+  /// Returns a row from the matrix as a vector.
+  ///
+  /// Note that by default this function returns a vector
+  /// that does not shares its storage with the matrix, but
+  /// allocates it's own memory. This means you can freely
+  /// change the matrix after creating the vector and the vector
+  /// will be unaffected.
+  ///
+  /// If you wish to share the storage with the matrix for
+  /// performance reasons pass [deepCopy = false]. This means
+  /// that changes to the matrix also appear in the vector.
+  ///
+  /// Example
+  /// ```dart
+  /// Matrix m = Matrix([
+  ///   [1.0, 2.0, 3.0, 1.0],
+  ///   [4.0, 5.0, 6.0, 2.0],
+  ///   [7.0, 8.0, 9.0, 3.0],
+  /// ]);
+  ///
+  /// print( m.rowVector(1) )
+  /// ```
+  ///
+  /// prints [ 1.0, 2.0, 3.0, 1.0 ]
+  ///
+  Vector rowVector(int row, [bool deepCopy = true]) {
+    if (row < 0 || row >= this.m) {
+      throw MatrixInvalidDimensions();
+    }
+    if (deepCopy) {
+      List<double> l =
+          List<double>.generate(this[row].length, (i) => this[row][i]);
+      return Vector.row(l);
+    } else {
+      return Vector.row(this[row]);
+    }
+  }
+
+  /// Returns a column from the matrix as a vector.
+  ///
+  /// This function returns a new vector that never
+  /// shares its storage with the source matrix.
+  ///
+  /// Example
+  /// ```dart
+  /// Matrix m = Matrix([
+  ///   [1.0, 2.0, 3.0, 1.0],
+  ///   [4.0, 5.0, 6.0, 2.0],
+  ///   [7.0, 8.0, 9.0, 3.0],
+  /// ]);
+  ///
+  /// print( m.columnVector(0) )
+  /// ```
+  /// prints [
+  ///   1.0,
+  ///   4.0,
+  ///   7.0
+  /// ]
+  /// ```
+  Vector columnVector(int column) {
+    if (column < 0 || column >= this.n) {
+      throw MatrixInvalidDimensions();
+    }
+    Vector vector = Vector.fillColumn(this.m);
+    for (int i = 0; i < this.m; i++) {
+      vector[i] = this[i][column];
+    }
+    return vector;
   }
 }

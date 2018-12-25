@@ -145,6 +145,15 @@ class Vector {
     }
   }
 
+  /// Write values to elements of the vector.
+  void operator []=(int element, double value) {
+    if (_vectorType == VectorType.row) {
+      _matrix[0][element] = value;
+    } else {
+      _matrix[element][0] = value;
+    }
+  }
+
   /// Returns the number of elements in the vector.
   int get elements => _vectorType == VectorType.row ? _matrix.n : _matrix.m;
 
