@@ -454,31 +454,48 @@ class Vector {
 
   /// Returns the [Matrix] representation of this [Vector]
   ///
-  /// Note this is a reference to the internal matrix of the
-  /// vector. Changes to the returned matrix will also affect the
-  /// vector.
-  Matrix toMatrix() {
-    return _matrix;
+  /// Note that by default this function returns a Matrix
+  /// that does not shares its storage with the Vector, but
+  /// allocates it's own memory. This means you can freely
+  /// change the Vector after creating the Matrix and the Matrix
+  /// will be unaffected.
+  ///
+  /// If you wish to create a Matrix that shares its memory with the
+  /// vector set deepCopy to false.
+  Matrix toMatrix([bool deepCopy = true]) {
+    if (deepCopy) {
+      return _matrix.copy();
+    } else {
+      return _matrix;
+    }
   }
 
   /// Returns the [List<double>] of this [Vector]
   ///
-  /// Note if the vector is a row vector a reference to the
-  /// internal data is returned. Any changes to that data
-  /// affect the vector as well.
+  /// Note that by default this function returns a List
+  /// that does not shares its storage with the Vector, but
+  /// allocates it's own memory. This means you can freely
+  /// change the matrix after creating the vector and the vector
+  /// will be unaffected.
   ///
-  /// If the vector is a column vector a copy of the vector
-  /// is returned and changes to the returned list will
-  /// _not_ affect the vector.
-  List<double> toList() {
+  /// If you wish to share the storage with the Vector for
+  /// performance reasons pass [deepCopy = false]. This means
+  /// that changes to the Vector also appear in the List, however this
+  /// only works for row vectors. Column vectors always make a deep copy.
+  List<double> toList([bool deepCopy = true]) {
     if (_vectorType == VectorType.row) {
-      return this._matrix[0];
-    } else {
-      List<double> l = List<double>(this.elements);
-      for (int i = 0; i < this.elements; i++) {
-        l[i] = this[i];
+      if (deepCopy) {
+        return List<double>.generate(this.elements, (i) => this._matrix[0][i]);
+      } else {
+        return this._matrix[0];
       }
-      return l;
+    } else {
+      if (deepCopy) {
+        return List<double>.generate(this.elements, (i) => this._matrix[i][0]);
+      } else {
+        throw MatrixUnsupportedOperation(
+            "Cannot create shallow copy of column vector");
+      }
     }
   }
 }

@@ -1,3 +1,8 @@
+## [0.3.1] -- 12/24/2018
+
+* Fixed Vector.toList and Vector.toMatrix to return deepCopies by default. Added optional parameters
+  to return references where possible for optimization use.
+
 ## [0.3.0] -- 12/24/2018
 
 * Added matrix.columnVector, Matrix.rowVector and Matrix.copy
