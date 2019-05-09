@@ -1,3 +1,7 @@
+## [0.3.2] -- 5/9/2019
+
+* Updated Coverage collection to work with recent dart builds.
+
 ## [0.3.1] -- 12/24/2018
 
 * Fixed Vector.toList and Vector.toMatrix to return deepCopies by default. Added optional parameters

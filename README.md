@@ -91,7 +91,7 @@ Add linalg as a dependency to your flutter project.
 
 ```yaml
 dependencies:
-  linalg: ^0.3.1
+  linalg: ^0.3.2
 ```
 
 and at the top of your dart file add:

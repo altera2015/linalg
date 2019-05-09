@@ -1,21 +1,21 @@
 import 'dart:async';
 import 'package:grinder/grinder.dart';
+// import 'package:coveralls/coveralls.dart';
+import 'dart:io';
+import 'package:grinder_coveralls/grinder_coveralls.dart' as coveralls;
 
 /// Starts the build system.
 Future<void> main(List<String> args) => grind(args);
 
 @Task('Uploads the results of the code coverage')
-void upload() => Pub.runAsync('coveralls', script: 'coveralls', arguments: ['lcov.info']);
+Future<void> upload() async {  
+  final coverage = await getFile('lcov.info').readAsString();
+  await coveralls.uploadCoverage(coverage);
+}
 
 
 @Task('Runs the test suites')
-Future<void> test() async {
-  await Future.wait([
-    Dart.runAsync('test/test_all.dart', vmArgs: ['--enable-vm-service', '--pause-isolates-on-exit']),
-    Pub.runAsync('coverage', script: 'collect_coverage', arguments: ['--out=coverage.json', '--resume-isolates', '--wait-paused'])
-  ]);
-
-  final args = ['--in=coverage.json', '--lcov', '--out=lcov.info', '--packages=.packages', '--report-on=${libDir.path}'];
-  return Pub.runAsync('coverage', script: 'format_coverage', arguments: args);
+Future<void> test() async { 
+  await coveralls.collectCoverage(getFile('test/test_all.dart'),saveAs: 'lcov.info', basePath: Directory.current.path, reportOn: ["lib"]);
 }
 
