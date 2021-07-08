@@ -1,4 +1,4 @@
-![CI](https://travis-ci.com/altera2015/linalg.svg?branch=master) [![Pub](https://img.shields.io/pub/v/linalg.svg)](https://pub.dartlang.org/packages/linalg)
+[![Dart](https://github.com/altera2015/linalg/actions/workflows/dart.yml/badge.svg)](https://github.com/altera2015/linalg/actions/workflows/dart.yml) [![Pub](https://img.shields.io/pub/v/linalg.svg)](https://pub.dartlang.org/packages/linalg)
 
 # linalg
 
