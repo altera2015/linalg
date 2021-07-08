@@ -1,7 +1,8 @@
 library linalg.matrix;
 
-import 'dart:math';
 import 'dart:core';
+import 'dart:math';
+
 import 'vector.dart';
 
 typedef double MatrixMapFunc(double x);
@@ -14,8 +15,7 @@ class MatrixException implements Exception {
 
 /// An exception that is thrown when [invert] is called on a non-invertable matrix.
 class MatrixNoInverseException extends MatrixException {
-  MatrixNoInverseException([String cause = "No inverse for this matrix"])
-      : super(cause);
+  MatrixNoInverseException([String cause = "No inverse for this matrix"]) : super(cause);
 }
 
 /// An exception that is thrown if the dimensions are invalid for the operation.
@@ -25,8 +25,7 @@ class MatrixInvalidDimensions extends MatrixException {
 
 /// An exception that is thrown if the operations is not supported on the type passed.
 class MatrixUnsupportedOperation extends MatrixException {
-  MatrixUnsupportedOperation([String cause = "Unsupported operation"])
-      : super(cause);
+  MatrixUnsupportedOperation([String cause = "Unsupported operation"]) : super(cause);
 }
 
 /// The Matrix class
@@ -62,8 +61,7 @@ class Matrix {
   /// Constructs a [m]x[n] (rows x cols) Matrix fill with [fill=0.0].
   ///
   /// m and n must be positive and larger than 0.
-  Matrix.fill(int m, int n, [double fill = 0.0])
-      : _values = _createStore(m, n, fill);
+  Matrix.fill(int m, int n, [double fill = 0.0]) : _values = _createStore(m, n, fill);
 
   /// Constructs an identity matrix of [size]
   Matrix.eye(int size) : _values = _createStore(size, size, 0.0) {
@@ -84,7 +82,7 @@ class Matrix {
     if (m <= 0 || n <= 0) {
       throw MatrixInvalidDimensions("m and n must be positive.");
     }
-    List<List<double>> toRet = List<List<double>>();
+    List<List<double>> toRet = [];
     for (int i = 0; i < m; i++) {
       List<double> sub = [];
       for (int j = 0; j < n; j++) {
@@ -155,8 +153,7 @@ class Matrix {
   ///
   /// Throws [MatrixInvalidDimensions] if dimensions do not match.
   Matrix operator +(Matrix other) {
-    if (this.m != other.m || this.n != other.n)
-      throw new MatrixInvalidDimensions();
+    if (this.m != other.m || this.n != other.n) throw new MatrixInvalidDimensions();
     Matrix toReturn = new Matrix.fill(m, n);
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
@@ -170,8 +167,7 @@ class Matrix {
   ///
   /// Throws [MatrixInvalidDimensions] if dimensions do not match.
   Matrix operator -(Matrix other) {
-    if (this.m != other.m || this.n != other.n)
-      throw new MatrixInvalidDimensions();
+    if (this.m != other.m || this.n != other.n) throw new MatrixInvalidDimensions();
     return this + ~other;
   }
 
@@ -182,8 +178,7 @@ class Matrix {
     return this.map((x) => -x);
   }
 
-  static bool _isClose(double a, double b,
-      [double relTol = 1e-9, double absTol = 0.0]) {
+  static bool _isClose(double a, double b, [double relTol = 1e-9, double absTol = 0.0]) {
     // double diff = a - b;
     // diff = diff.abs();
     return (a - b).abs() <= max(relTol * max(a.abs(), b.abs()), absTol);
@@ -453,7 +448,7 @@ class Matrix {
 
   /// Returns a deep copy of the Matrix.
   Matrix copy() {
-    List<List<double>> storage = List<List<double>>();
+    List<List<double>> storage = [];
     for (int i = 0; i < m; i++) {
       storage.add(List<double>.generate(n, (j) => this[i][j]));
     }
@@ -512,8 +507,7 @@ class Matrix {
       throw MatrixInvalidDimensions();
     }
     if (deepCopy) {
-      List<double> l =
-          List<double>.generate(this[row].length, (i) => this[row][i]);
+      List<double> l = List<double>.generate(this[row].length, (i) => this[row][i]);
       return Vector.row(l);
     } else {
       return Vector.row(this[row]);

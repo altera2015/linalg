@@ -1,4 +1,4 @@
-![CI](https://travis-ci.com/altera2015/linalg.svg?branch=master) [![Pub](https://img.shields.io/pub/v/linalg.svg)](https://pub.dartlang.org/packages/linalg) [![Coverage Status](https://coveralls.io/repos/github/altera2015/linalg/badge.svg?branch=master)](https://coveralls.io/github/altera2015/linalg?branch=master)
+![CI](https://travis-ci.com/altera2015/linalg.svg?branch=master) [![Pub](https://img.shields.io/pub/v/linalg.svg)](https://pub.dartlang.org/packages/linalg)
 
 # linalg
 
@@ -91,7 +91,7 @@ Add linalg as a dependency to your flutter project.
 
 ```yaml
 dependencies:
-  linalg: ^0.3.2
+  linalg: ^0.4.0
 ```
 
 and at the top of your dart file add:

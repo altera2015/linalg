@@ -3,7 +3,6 @@
 # http://dart-lang.github.io/linter/lints/options/options.html
 linter:
   rules:
-    - camel_case_types
     - hash_and_equals
     - iterable_contains_unrelated_type
     - list_remove_unrelated_type

@@ -2,6 +2,7 @@ library linalg.vector;
 
 import 'dart:core';
 import 'dart:math';
+
 import 'matrix.dart';
 
 enum VectorType { row, column }
@@ -47,8 +48,7 @@ class Vector {
     } else if (matrix.n == 1) {
       return Vector._(matrix, VectorType.column);
     }
-    throw MatrixInvalidDimensions(
-        "n or m must be 1 to be able to cast to a vector.");
+    throw MatrixInvalidDimensions("n or m must be 1 to be able to cast to a vector.");
   }
 
   /// Creates a row vector from the list of values given.
@@ -257,8 +257,7 @@ class Vector {
   /// ]
   /// ```
   Vector transpose() {
-    return Vector._(_matrix.transpose(),
-        _vectorType == VectorType.row ? VectorType.column : VectorType.row);
+    return Vector._(_matrix.transpose(), _vectorType == VectorType.row ? VectorType.column : VectorType.row);
   }
 
   /// Adds two vectors
@@ -388,15 +387,13 @@ class Vector {
   /// ```
   Vector crossProduct(Vector other) {
     if (this.elements != 3) {
-      throw MatrixUnsupportedOperation(
-          "Cross product only implemented for 3 dimensional vectors.");
+      throw MatrixUnsupportedOperation("Cross product only implemented for 3 dimensional vectors.");
     }
     if (this.elements != other.elements) {
-      throw MatrixInvalidDimensions(
-          "Cross product requires both vectors to have 3 elements.");
+      throw MatrixInvalidDimensions("Cross product requires both vectors to have 3 elements.");
     }
 
-    List<double> values = List<double>();
+    List<double> values = [];
 
     values.add(this[1] * other[2] - this[2] * other[1]);
     values.add(this[2] * other[0] - this[0] * other[2]);
@@ -423,8 +420,7 @@ class Vector {
   /// ```
   double dotProduct(Vector other) {
     if (this.elements != other.elements) {
-      throw MatrixInvalidDimensions(
-          "Dot product requires both vectors to have the same number of elements.");
+      throw MatrixInvalidDimensions("Dot product requires both vectors to have the same number of elements.");
     }
     double p = 0.0;
     for (int i = 0; i < this.elements; i++) {
@@ -493,8 +489,7 @@ class Vector {
       if (deepCopy) {
         return List<double>.generate(this.elements, (i) => this._matrix[i][0]);
       } else {
-        throw MatrixUnsupportedOperation(
-            "Cannot create shallow copy of column vector");
+        throw MatrixUnsupportedOperation("Cannot create shallow copy of column vector");
       }
     }
   }

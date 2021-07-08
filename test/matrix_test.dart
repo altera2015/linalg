@@ -1,7 +1,7 @@
 library linalg.test.matrix;
 
-import 'package:test/test.dart';
 import 'package:linalg/linalg.dart';
+import 'package:test/test.dart';
 
 void main() {
   group("Matrix", () {
@@ -363,8 +363,7 @@ void main() {
     // Test exceptions
 
     test("Exception: Creating matrix with invalid dimensions", () {
-      expect(() => Matrix.eye(-2),
-          throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+      expect(() => Matrix.eye(-2), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
 
       final Matrix a = Matrix.eye(3);
       final Matrix b = Matrix.eye(2);
@@ -392,8 +391,7 @@ void main() {
         [3.0, 4.0],
         [1.0, 2.0]
       ]);
-      expect(
-          () => a.coFactors(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+      expect(() => a.coFactors(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
 
     test("Exception: Determinant of 1x1 matrix", () {
@@ -403,8 +401,7 @@ void main() {
 
     test("Exception: Cofactor of 2x2 matrix", () {
       final Matrix a = Matrix.eye(2);
-      expect(
-          () => a.coFactors(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+      expect(() => a.coFactors(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
 
     test("Exception: Impossible Inversion", () {
@@ -413,14 +410,12 @@ void main() {
         [2.0, 6.0, 6.0],
         [1.0, 3.0, 4.0]
       ]);
-      expect(
-          () => a.inverse(), throwsA(TypeMatcher<MatrixNoInverseException>()));
+      expect(() => a.inverse(), throwsA(TypeMatcher<MatrixNoInverseException>()));
     });
 
     test("Exception: Matrix to Vector that is not a vector", () {
       final Matrix a = Matrix.eye(2);
-      expect(
-          () => a.toVector(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
+      expect(() => a.toVector(), throwsA(TypeMatcher<MatrixInvalidDimensions>()));
     });
 
     test("Exception: Trace on non-square matrix", () {

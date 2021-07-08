@@ -5,5 +5,5 @@ notifications: {email: false}
 sudo: false
 
 install: pub get
-script: pub run grinder test
-after_success: pub run grinder upload
+script: pub run test
+# after_success: pub run grinder upload

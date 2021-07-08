@@ -1,3 +1,7 @@
+## [0.4.0] -- 7/8/2021
+
+* Added null safety.
+
 ## [0.3.2] -- 5/9/2019
 
 * Updated Coverage collection to work with recent dart builds.
